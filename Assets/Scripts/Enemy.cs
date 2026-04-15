@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
 
+    public EnemySpawner spawner;
+
     private int currentHealth;
     private Transform player;
     private NavMeshAgent agent;
@@ -55,7 +57,6 @@ public class Enemy : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, player.position);
 
-        // 🟢 MOVEMENT
         if (distance > enemyData.stopDistance)
         {
             agent.isStopped = false;
@@ -75,7 +76,6 @@ public class Enemy : MonoBehaviour
                 animator.SetBool("IsMoving", false);
             }
 
-            // 🔴 ATTACK
             if (Time.time >= nextAttackTime)
             {
                 Attack();
@@ -84,7 +84,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // 🎬 ONLY triggers animation
     void Attack()
     {
         if (animator != null)
@@ -93,22 +92,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // 🔫 CALLED FROM ANIMATION EVENT
     public void ShootBullet()
     {
         if (bulletPrefab != null && firePoint != null)
         {
-            Debug.Log("🔥 SHOOTING BULLET");
-
             Instantiate(
                 bulletPrefab,
                 firePoint.position,
                 firePoint.rotation
             );
-        }
-        else
-        {
-            Debug.LogWarning("❌ bulletPrefab or firePoint missing");
         }
     }
 
@@ -150,24 +142,25 @@ public class Enemy : MonoBehaviour
 
     IEnumerator DieAfterDelay()
     {
-        yield return new WaitForSeconds(20f);
+        yield return new WaitForSeconds(2f);
+
+        if (spawner != null)
+        {
+            spawner.EnemyDied();
+        }
+
         Destroy(gameObject);
     }
 
-    // 🏆 CALLED WHEN PLAYER DIES
     public void PlayVictory()
     {
         if (isDead) return;
 
-        Debug.Log("🏆 ENEMY VICTORY");
-
-        // stop movement
         if (agent != null)
         {
             agent.isStopped = true;
         }
 
-        // stop all behavior
         this.enabled = false;
 
         if (animator != null)
