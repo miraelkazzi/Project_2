@@ -62,7 +62,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -1.35, y: 0.48, z: 13.93}
-  m_LocalScale: {x: 1, y: 0.66772, z: 1}
+  m_LocalScale: {x: 2, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3881500092826377423}
@@ -186,6 +186,7 @@ MonoBehaviour:
   animator: {fileID: 7151143433337439925}
   bulletPrefab: {fileID: 9218342098789801720, guid: 06077fad555682045b19fd56165abf1a, type: 3}
   firePoint: {fileID: 4769291964440889345}
+  spawner: {fileID: 0}
 --- !u!1001 &7196714295777958971
 PrefabInstance:
   m_ObjectHideFlags: 0
