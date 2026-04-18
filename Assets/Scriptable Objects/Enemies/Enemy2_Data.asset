@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e524b382dfae201408dcc7ad67669e6a, type: 3}
-  m_Name: Enemy1_Data
+  m_Name: Enemy2_Data
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  enemyName: Starfish
-  maxHealth: 3
+  enemyName: Chest
+  maxHealth: 4
   moveSpeed: 3.5
   stopDistance: 20
