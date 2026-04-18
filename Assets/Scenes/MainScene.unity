@@ -11380,15 +11380,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1512148224729488653, guid: a50dc8fc460c47aa9033b698c00b2133, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1512148224729488653, guid: a50dc8fc460c47aa9033b698c00b2133, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1512148224729488653, guid: a50dc8fc460c47aa9033b698c00b2133, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1512148224729488653, guid: a50dc8fc460c47aa9033b698c00b2133, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11639,13 +11639,13 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1512148224729317677, guid: a50dc8fc460c47aa9033b698c00b2133, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1079284059}
+    - targetCorrespondingSourceObject: {fileID: 1512148224729317677, guid: a50dc8fc460c47aa9033b698c00b2133, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1079284056}
     - targetCorrespondingSourceObject: {fileID: 1512148224729317677, guid: a50dc8fc460c47aa9033b698c00b2133, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1079284055}
-    - targetCorrespondingSourceObject: {fileID: 1512148224729317677, guid: a50dc8fc460c47aa9033b698c00b2133, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1079284059}
   m_SourcePrefab: {fileID: 100100000, guid: a50dc8fc460c47aa9033b698c00b2133, type: 3}
 --- !u!1001 &1048735024
 PrefabInstance:
@@ -12872,7 +12872,7 @@ Transform:
   m_GameObject: {fileID: 1265264418}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.001, y: 0.856, z: 0}
+  m_LocalPosition: {x: 0.001, y: 0.752, z: 0.225}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

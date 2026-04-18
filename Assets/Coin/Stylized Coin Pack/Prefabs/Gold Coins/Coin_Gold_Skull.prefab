@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8109fcb8f8c71d247b997c64b97f702c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8109fcb8f8c71d247b997c64b97f702c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8109fcb8f8c71d247b997c64b97f702c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8109fcb8f8c71d247b997c64b97f702c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -89,7 +89,7 @@ PrefabInstance:
       addedObject: {fileID: 6086215803745377192}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8109fcb8f8c71d247b997c64b97f702c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3116358046237290552}
+      addedObject: {fileID: 3102052561824230917}
   m_SourcePrefab: {fileID: 100100000, guid: 8109fcb8f8c71d247b997c64b97f702c, type: 3}
 --- !u!1 &8148542576127889976 stripped
 GameObject:
@@ -108,9 +108,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d1b1c861352fb7418ee79d5ed0954c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBullet
-  speed: 25
---- !u!136 &3116358046237290552
-CapsuleCollider:
+  bulletData: {fileID: 11400000, guid: 12ad4ffdfde0c424897677408f9c86b4, type: 2}
+--- !u!65 &3102052561824230917
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -124,11 +124,9 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.20000003
-  m_Height: 0.40000004
-  m_Direction: 1
-  m_Center: {x: 0.0009212494, y: 0.010303766, z: -0.0039417194}
+  serializedVersion: 3
+  m_Size: {x: 0.40000007, y: 0.40000007, z: 0.1038801}
+  m_Center: {x: 0.0009212494, y: 0.01030376, z: -0.022625448}

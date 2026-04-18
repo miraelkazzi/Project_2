@@ -2,40 +2,38 @@
 
 public class EnemyBullet : MonoBehaviour
 {
-    public float speed = 5f;
+    public BulletData bulletData;
 
     private void Start()
     {
         Debug.Log("🟢 Enemy bullet SPAWNED at: " + transform.position);
 
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, bulletData.lifetime);
     }
 
     private void Update()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
+        transform.position += transform.forward * bulletData.speed * Time.deltaTime;
 
-        // 🔴 DRAW BULLET PATH
         Debug.DrawRay(transform.position, transform.forward * 1f, Color.green);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        // ignore enemy
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
             return;
 
-        Debug.Log("💥 Bullet hit: " + collision.gameObject.name);
+        Debug.Log("💥 Coin hit: " + other.gameObject.name);
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             Debug.Log("🎯 PLAYER GOT HIT");
 
-            PlayerHealth player = collision.gameObject.GetComponent<PlayerHealth>();
+            PlayerHealth player = other.GetComponent<PlayerHealth>();
 
             if (player != null)
             {
-                player.TakeDamage(1);
+                player.TakeDamage(3); // stronger than bullet
             }
         }
 
