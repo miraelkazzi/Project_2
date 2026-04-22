@@ -14,4 +14,5 @@ public class WeaponData : ScriptableObject
 
     [Header("Bullet")]
     public GameObject bulletPrefab;
+    public GameObject weaponPrefab;
 }

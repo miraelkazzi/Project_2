@@ -1,9 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GunShoot : MonoBehaviour
 {
     public WeaponData weaponData;
     public Transform firePoint;
+
+    public Transform weaponHolder; // where gun model appears
+    private GameObject currentWeaponObject;
 
     private float nextFireTime;
     private int currentAmmo;
@@ -13,6 +16,9 @@ public class GunShoot : MonoBehaviour
         if (weaponData != null)
         {
             currentAmmo = weaponData.maxAmmo;
+
+            // spawn starting weapon
+            SpawnWeaponModel();
         }
     }
 
@@ -44,6 +50,49 @@ public class GunShoot : MonoBehaviour
         nextFireTime = Time.time + weaponData.fireRate;
 
         Destroy(bullet, 5f);
+    }
+
+    void SpawnWeaponModel()
+    {
+        if (weaponHolder == null || weaponData.weaponPrefab == null) return;
+
+        currentWeaponObject = Instantiate(
+            weaponData.weaponPrefab,
+            weaponHolder.position,
+            weaponHolder.rotation,
+            weaponHolder
+        );
+
+        // 🔥 FIND NEW FIREPOINT
+        Transform newFirePoint = currentWeaponObject.transform.Find("FirePoint");
+
+        if (newFirePoint != null)
+        {
+            firePoint = newFirePoint;
+        }
+        else
+        {
+            Debug.LogWarning("No FirePoint found on weapon!");
+        }
+    }
+
+    public void EquipWeapon(WeaponData newWeapon)
+    {
+        weaponData = newWeapon;
+
+        // destroy old gun
+        if (currentWeaponObject != null)
+        {
+            Destroy(currentWeaponObject);
+        }
+
+        // spawn new gun
+        SpawnWeaponModel();
+
+        // refill ammo
+        currentAmmo = weaponData.maxAmmo;
+
+        Debug.Log("Equipped: " + weaponData.weaponName);
     }
 
     public void RefillAmmo()

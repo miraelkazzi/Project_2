@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ea11d345acdc2438f920bdf89e7fb5, type: 3}
+  m_Name: Gun2_Data
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: New Weapon
+  damage: 10
+  fireRate: 0.2
+  bulletSpeed: 30
+  maxAmmo: 30
+  bulletPrefab: {fileID: 174260, guid: 1f8b37450fb3d004e9073960d4c6ff82, type: 3}
+  weaponPrefab: {fileID: 200384782523618669, guid: 659210edbb1948a42a77c17b95ea1246, type: 3}
