@@ -8,7 +8,9 @@ public class Enemy : MonoBehaviour
     public Animator animator;
 
     public GameObject bulletPrefab;
+
     public Transform firePoint;
+    public Transform[] firePoints;
 
     public EnemySpawner spawner;
 
@@ -94,7 +96,27 @@ public class Enemy : MonoBehaviour
 
     public void ShootBullet()
     {
-        if (bulletPrefab != null && firePoint != null)
+        if (bulletPrefab == null || player == null) return;
+
+        // 🔥 MULTI FIRE (virus enemy)
+        if (firePoints != null && firePoints.Length > 0)
+        {
+            for (int i = 0; i < firePoints.Length; i++)
+            {
+                Transform fp = firePoints[i];
+                if (fp == null) continue;
+
+                Vector3 direction = (player.position - fp.position).normalized;
+
+                Instantiate(
+                    bulletPrefab,
+                    fp.position,
+                    Quaternion.LookRotation(direction)
+                );
+            }
+        }
+       
+        else if (firePoint != null)
         {
             Instantiate(
                 bulletPrefab,
