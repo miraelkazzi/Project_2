@@ -4,7 +4,6 @@ using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
     public Transform[] spawnPoints;
 
     public int minEnemiesPerPoint = 4;
@@ -23,6 +22,8 @@ public class EnemySpawner : MonoBehaviour
     private int currentWave = 0;
     private int enemiesAlive = 0;
 
+    private bool canStartNextWave = false;
+
     private void Start()
     {
         StartCoroutine(WaveLoop());
@@ -32,37 +33,50 @@ public class EnemySpawner : MonoBehaviour
     {
         while (currentWave < maxWaves)
         {
-            yield return new WaitForSeconds(timeBetweenWaves);
+            if (currentWave == 0)
+            {
+                yield return new WaitForSeconds(timeBetweenWaves);
+            }
+            else
+            {
+                yield return new WaitUntil(() => canStartNextWave);
+                canStartNextWave = false;
+            }
 
             currentWave++;
-            Debug.Log("Wave " + currentWave + " started");
+            Debug.Log("===== STARTING WAVE " + currentWave + " =====");
 
             yield return StartCoroutine(SpawnWave());
 
             yield return new WaitUntil(() => enemiesAlive <= 0);
 
-            Debug.Log("Wave " + currentWave + " cleared");
+            Debug.Log("===== WAVE " + currentWave + " CLEARED =====");
         }
-
-        Debug.Log("All waves completed");
     }
 
     IEnumerator SpawnWave()
     {
         for (int i = 0; i < spawnPoints.Length; i++)
         {
+            Transform point = spawnPoints[i];
+
+            WaveSpawnPoint wavePoint = point.GetComponent<WaveSpawnPoint>();
+
+            if (wavePoint == null) continue;
+            if (wavePoint.waveNumber != currentWave) continue;
+
             int enemiesForThisPoint = Random.Range(minEnemiesPerPoint, maxEnemiesPerPoint + 1);
             enemiesForThisPoint += (currentWave - 1) * increasePerWave;
 
             for (int j = 0; j < enemiesForThisPoint; j++)
             {
-                SpawnEnemyAtPoint(spawnPoints[i]);
+                SpawnEnemyAtPoint(point, wavePoint);
                 yield return new WaitForSeconds(timeBetweenSpawns);
             }
         }
     }
 
-    void SpawnEnemyAtPoint(Transform point)
+    void SpawnEnemyAtPoint(Transform point, WaveSpawnPoint wavePoint)
     {
         Vector3 spawnPosition;
         bool foundPosition = TryGetValidSpawnPosition(point.position, out spawnPosition);
@@ -72,7 +86,9 @@ public class EnemySpawner : MonoBehaviour
             spawnPosition = point.position;
         }
 
-        GameObject enemyObj = Instantiate(enemyPrefab, spawnPosition, point.rotation);
+        if (wavePoint.enemyPrefab == null) return;
+
+        GameObject enemyObj = Instantiate(wavePoint.enemyPrefab, spawnPosition, point.rotation);
         enemiesAlive++;
 
         Enemy enemy = enemyObj.GetComponent<Enemy>();
@@ -131,5 +147,10 @@ public class EnemySpawner : MonoBehaviour
     public int GetCurrentWave()
     {
         return currentWave;
+    }
+
+    public void StartNextWave()
+    {
+        canStartNextWave = true;
     }
 }
