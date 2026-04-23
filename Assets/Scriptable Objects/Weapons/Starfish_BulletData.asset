@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Starfish_BulletData
   m_EditorClassIdentifier: Assembly-CSharp::BulletData
   damage: 1
-  speed: 15
-  lifetime: 5
+  speed: 30
+  lifetime: 20

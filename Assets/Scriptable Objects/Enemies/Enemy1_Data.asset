@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Enemy1_Data
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   enemyName: Starfish
-  maxHealth: 3
-  moveSpeed: 3.5
-  stopDistance: 20
+  maxHealth: 1
+  moveSpeed: 7
+  stopDistance: 30
+  attackDistance: 55

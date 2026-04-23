@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
 
     private bool isDead = false;
     private float nextAttackTime = 0f;
+    public float attackDistance = 10f;
 
     private void Start()
     {
@@ -78,6 +79,15 @@ public class Enemy : MonoBehaviour
                 animator.SetBool("IsMoving", false);
             }
 
+            if (Time.time >= nextAttackTime)
+            {
+                Attack();
+                nextAttackTime = Time.time + 3f;
+            }
+        }
+
+        if (distance <= enemyData.attackDistance)
+        {
             if (Time.time >= nextAttackTime)
             {
                 Attack();

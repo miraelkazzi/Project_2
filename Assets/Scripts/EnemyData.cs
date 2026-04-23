@@ -7,4 +7,5 @@ public class EnemyData : ScriptableObject
     public int maxHealth = 3;
     public float moveSpeed = 3.5f;
     public float stopDistance = 2f;
+    public float attackDistance = 10f;
 }
