@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1f9239d832cd0714a88ba940268d52fc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.030174276
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1f9239d832cd0714a88ba940268d52fc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1f9239d832cd0714a88ba940268d52fc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.027349707
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1f9239d832cd0714a88ba940268d52fc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -130,3 +130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinPickup
   value: 1
+  rotateSpeed: 100
+  floatSpeed: 2
+  floatHeight: 0.25
