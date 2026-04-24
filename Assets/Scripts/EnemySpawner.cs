@@ -23,8 +23,6 @@ public class EnemySpawner : MonoBehaviour
     private int enemiesAlive = 0;
 
     private bool canStartNextWave = false;
-
-    // 🔥 THIS CONTROLS ROOMS
     private bool roomUnlocked = false;
 
     private void Start()
@@ -36,14 +34,12 @@ public class EnemySpawner : MonoBehaviour
     {
         while (currentWave < maxWaves)
         {
-            // 🔥 WAVE FLOW CONTROL
             if (currentWave == 0)
             {
                 yield return new WaitForSeconds(timeBetweenWaves);
             }
             else
             {
-                // 🔴 WAVE 3 & 5 REQUIRE TRIGGER
                 if ((currentWave == 2 || currentWave == 4) && !roomUnlocked)
                 {
                     Debug.Log("Waiting for trigger for Wave " + (currentWave + 1));
@@ -66,7 +62,6 @@ public class EnemySpawner : MonoBehaviour
 
             Debug.Log("===== WAVE " + currentWave + " CLEARED =====");
 
-            // 🔥 RESET ROOM AFTER WAVE 4
             if (currentWave == 4)
             {
                 roomUnlocked = false;
@@ -171,6 +166,11 @@ public class EnemySpawner : MonoBehaviour
     public int GetCurrentWave()
     {
         return currentWave;
+    }
+
+    public bool IsWaveCleared()
+    {
+        return enemiesAlive <= 0;
     }
 
     public void StartNextWave()
