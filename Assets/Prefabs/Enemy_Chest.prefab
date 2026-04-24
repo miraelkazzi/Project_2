@@ -220,6 +220,7 @@ MonoBehaviour:
   firePoints: []
   spawner: {fileID: 0}
   attackDistance: 10
+  coinPrefab: {fileID: 1126470237653282223, guid: 54bbaeb21a67e664fb285a936766772c, type: 3}
 --- !u!1 &471199016346156493
 GameObject:
   m_ObjectHideFlags: 0

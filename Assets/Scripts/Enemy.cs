@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour
     private float nextAttackTime = 0f;
     public float attackDistance = 10f;
 
+    public GameObject coinPrefab;
+
     private void Start()
     {
         if (enemyData != null)
@@ -175,6 +177,15 @@ public class Enemy : MonoBehaviour
     IEnumerator DieAfterDelay()
     {
         yield return new WaitForSeconds(2f);
+
+        if (coinPrefab != null)
+        {
+            Instantiate(
+                coinPrefab,
+                transform.position + Vector3.up * 1f,
+                Quaternion.identity
+            );
+        }
 
         if (spawner != null)
         {
