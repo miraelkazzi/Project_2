@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,6 +24,9 @@ public class EnemySpawner : MonoBehaviour
 
     private bool canStartNextWave = false;
 
+    // 🔥 THIS CONTROLS ROOMS
+    private bool roomUnlocked = false;
+
     private void Start()
     {
         StartCoroutine(WaveLoop());
@@ -33,14 +36,25 @@ public class EnemySpawner : MonoBehaviour
     {
         while (currentWave < maxWaves)
         {
+            // 🔥 WAVE FLOW CONTROL
             if (currentWave == 0)
             {
                 yield return new WaitForSeconds(timeBetweenWaves);
             }
             else
             {
-                yield return new WaitUntil(() => canStartNextWave);
-                canStartNextWave = false;
+                // 🔴 WAVE 3 & 5 REQUIRE TRIGGER
+                if ((currentWave == 2 || currentWave == 4) && !roomUnlocked)
+                {
+                    Debug.Log("Waiting for trigger for Wave " + (currentWave + 1));
+                    yield return new WaitUntil(() => canStartNextWave);
+                    canStartNextWave = false;
+                    roomUnlocked = true;
+                }
+                else
+                {
+                    yield return new WaitForSeconds(timeBetweenWaves);
+                }
             }
 
             currentWave++;
@@ -51,6 +65,12 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitUntil(() => enemiesAlive <= 0);
 
             Debug.Log("===== WAVE " + currentWave + " CLEARED =====");
+
+            // 🔥 RESET ROOM AFTER WAVE 4
+            if (currentWave == 4)
+            {
+                roomUnlocked = false;
+            }
         }
     }
 
@@ -86,9 +106,13 @@ public class EnemySpawner : MonoBehaviour
             spawnPosition = point.position;
         }
 
-        if (wavePoint.enemyPrefab == null) return;
+        if (wavePoint.enemyPrefabs == null || wavePoint.enemyPrefabs.Length == 0) return;
 
-        GameObject enemyObj = Instantiate(wavePoint.enemyPrefab, spawnPosition, point.rotation);
+        int maxIndex = Mathf.Min(currentWave, wavePoint.enemyPrefabs.Length) - 1;
+        int randomIndex = Random.Range(0, maxIndex + 1);
+
+        GameObject enemyObj = Instantiate(wavePoint.enemyPrefabs[randomIndex], spawnPosition, point.rotation);
+
         enemiesAlive++;
 
         Enemy enemy = enemyObj.GetComponent<Enemy>();
@@ -151,6 +175,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartNextWave()
     {
+        Debug.Log("Trigger started next wave");
         canStartNextWave = true;
     }
 }

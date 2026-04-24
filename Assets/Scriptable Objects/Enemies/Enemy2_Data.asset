@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Enemy2_Data
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   enemyName: Chest
-  maxHealth: 4
+  maxHealth: 1
   moveSpeed: 3.5
   stopDistance: 20
+  attackDistance: 10
