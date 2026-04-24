@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy3_Data
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   enemyName: Virus
-  maxHealth: 1
-  moveSpeed: 3.5
-  stopDistance: 20
-  attackDistance: 10
+  maxHealth: 3
+  moveSpeed: 9
+  stopDistance: 30
+  attackDistance: 60
