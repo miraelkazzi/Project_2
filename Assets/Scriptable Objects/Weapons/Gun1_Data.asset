@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: Gun_1
   damage: 10
   fireRate: 0.2
-  bulletSpeed: 30
+  bulletSpeed: 40
   maxAmmo: 500
   bulletPrefab: {fileID: 8022592324735072439, guid: 233850b301ffbc349865b3ccbeb4bd3c, type: 3}
   weaponPrefab: {fileID: 1856088984137526789, guid: 65cf2bc16f9271b45ad0524d2a2b9d91, type: 3}

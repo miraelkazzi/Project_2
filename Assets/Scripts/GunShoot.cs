@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
+using TMPro;
 
 public class GunShoot : MonoBehaviour
 {
     public WeaponData weaponData;
     public Transform firePoint;
 
-    public Transform weaponHolder; // where gun model appears
+    public Transform weaponHolder;
     private GameObject currentWeaponObject;
 
     private float nextFireTime;
     private int currentAmmo;
+
+
+    public TMP_Text ammoText;
 
     private void Start()
     {
@@ -17,8 +21,8 @@ public class GunShoot : MonoBehaviour
         {
             currentAmmo = weaponData.maxAmmo;
 
-            // spawn starting weapon
             SpawnWeaponModel();
+            UpdateAmmoUI();
         }
     }
 
@@ -47,6 +51,8 @@ public class GunShoot : MonoBehaviour
         }
 
         currentAmmo--;
+        UpdateAmmoUI();
+
         nextFireTime = Time.time + weaponData.fireRate;
 
         Destroy(bullet, 5f);
@@ -63,7 +69,6 @@ public class GunShoot : MonoBehaviour
             weaponHolder
         );
 
-        // 🔥 FIND NEW FIREPOINT
         Transform newFirePoint = currentWeaponObject.transform.Find("FirePoint");
 
         if (newFirePoint != null)
@@ -80,17 +85,15 @@ public class GunShoot : MonoBehaviour
     {
         weaponData = newWeapon;
 
-        // destroy old gun
         if (currentWeaponObject != null)
         {
             Destroy(currentWeaponObject);
         }
 
-        // spawn new gun
         SpawnWeaponModel();
 
-        // refill ammo
         currentAmmo = weaponData.maxAmmo;
+        UpdateAmmoUI();
 
         Debug.Log("Equipped: " + weaponData.weaponName);
     }
@@ -98,6 +101,16 @@ public class GunShoot : MonoBehaviour
     public void RefillAmmo()
     {
         currentAmmo = weaponData.maxAmmo;
+        UpdateAmmoUI();
+    }
+
+
+    void UpdateAmmoUI()
+    {
+        if (ammoText != null)
+        {
+            ammoText.text = currentAmmo + " / " + weaponData.maxAmmo;
+        }
     }
 
     public int GetCurrentAmmo()

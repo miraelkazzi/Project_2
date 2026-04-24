@@ -910,7 +910,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 37.981457, y: -1.019989, z: 241.35258}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 914571970618596338}
@@ -965,6 +965,7 @@ MonoBehaviour:
   - {fileID: 2184141117562073976}
   - {fileID: 3563519822458083392}
   spawner: {fileID: 0}
+  attackDistance: 10
 --- !u!65 &2505763169348307549
 BoxCollider:
   m_ObjectHideFlags: 0

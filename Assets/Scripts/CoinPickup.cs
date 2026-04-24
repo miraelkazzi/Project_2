@@ -17,10 +17,8 @@ public class CoinPickup : MonoBehaviour
 
     private void Update()
     {
-        // rotate
         transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime, Space.World);
 
-        // float up and down
         float newY = startPos.y + Mathf.Sin(Time.time * floatSpeed) * floatHeight;
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
@@ -29,11 +27,11 @@ public class CoinPickup : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        PlayerCoins player = other.GetComponent<PlayerCoins>();
+        PlayerInventory inventory = other.GetComponent<PlayerInventory>();
 
-        if (player != null)
+        if (inventory != null)
         {
-            player.AddCoins(value);
+            inventory.AddCoins(value);
         }
 
         Destroy(gameObject);
