@@ -14,6 +14,7 @@ public class PlayerInventory : MonoBehaviour
     public TMP_Text ammoCountText;
     public TMP_Text shieldCountText;
 
+
     private void Start()
     {
         UpdateUI();
@@ -61,7 +62,7 @@ public class PlayerInventory : MonoBehaviour
         PlayerHealth health = GetComponent<PlayerHealth>();
         if (health != null)
         {
-            health.Heal(5);
+            health.Heal(10);
         }
 
         UpdateUI();
@@ -91,7 +92,7 @@ public class PlayerInventory : MonoBehaviour
         PlayerHealth health = GetComponent<PlayerHealth>();
         if (health != null)
         {
-            health.ActivateShield(5f);
+            health.ActivateShield(10f);
         }
 
         UpdateUI();

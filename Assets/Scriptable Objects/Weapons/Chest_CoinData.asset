@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Chest_CoinData
   m_EditorClassIdentifier: Assembly-CSharp::BulletData
   damage: 2
-  speed: 25
+  speed: 33
   lifetime: 5

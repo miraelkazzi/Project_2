@@ -20,19 +20,15 @@ public class Enemy : MonoBehaviour
 
     private bool isDead = false;
     private float nextAttackTime = 0f;
-    public float attackDistance = 10f;
 
     public GameObject coinPrefab;
+    public GameObject deathEffect;
 
     private void Start()
     {
         if (enemyData != null)
         {
             currentHealth = enemyData.maxHealth;
-        }
-        else
-        {
-            Debug.LogWarning("EnemyData is missing on " + gameObject.name);
         }
 
         agent = GetComponent<NavMeshAgent>();
@@ -49,10 +45,6 @@ public class Enemy : MonoBehaviour
         {
             player = playerObject.transform;
         }
-        else
-        {
-            Debug.LogWarning("No object with Player tag found.");
-        }
     }
 
     private void Update()
@@ -68,33 +60,48 @@ public class Enemy : MonoBehaviour
             agent.SetDestination(player.position);
 
             if (animator != null)
-            {
                 animator.SetBool("IsMoving", true);
-            }
         }
         else
         {
             agent.isStopped = true;
 
             if (animator != null)
-            {
                 animator.SetBool("IsMoving", false);
-            }
 
-            if (Time.time >= nextAttackTime)
+            RotateTowardsPlayer();
+
+         
+            if (Time.time >= nextAttackTime && IsFacingPlayer())
             {
                 Attack();
                 nextAttackTime = Time.time + 3f;
             }
         }
+    }
 
-        if (distance <= enemyData.attackDistance)
+   
+    bool IsFacingPlayer()
+    {
+        Vector3 dirToPlayer = (player.position - transform.position).normalized;
+        float dot = Vector3.Dot(transform.forward, dirToPlayer);
+        return dot > 0.7f; 
+    }
+
+  
+    void RotateTowardsPlayer()
+    {
+        Vector3 direction = player.position - transform.position;
+        direction.y = 0;
+
+        if (direction != Vector3.zero)
         {
-            if (Time.time >= nextAttackTime)
-            {
-                Attack();
-                nextAttackTime = Time.time + 3f;
-            }
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                Time.deltaTime * 5f
+            );
         }
     }
 
@@ -110,7 +117,6 @@ public class Enemy : MonoBehaviour
     {
         if (bulletPrefab == null || player == null) return;
 
-        // 🔥 MULTI FIRE (virus enemy)
         if (firePoints != null && firePoints.Length > 0)
         {
             for (int i = 0; i < firePoints.Length; i++)
@@ -127,13 +133,14 @@ public class Enemy : MonoBehaviour
                 );
             }
         }
-       
         else if (firePoint != null)
         {
+            Vector3 direction = (player.position - firePoint.position).normalized;
+
             Instantiate(
                 bulletPrefab,
                 firePoint.position,
-                firePoint.rotation
+                Quaternion.LookRotation(direction)
             );
         }
     }
@@ -145,14 +152,10 @@ public class Enemy : MonoBehaviour
         currentHealth -= amount;
 
         if (animator != null)
-        {
             animator.SetTrigger("GetHit");
-        }
 
         if (currentHealth <= 0)
-        {
             Die();
-        }
     }
 
     void Die()
@@ -162,47 +165,34 @@ public class Enemy : MonoBehaviour
         isDead = true;
 
         if (agent != null)
-        {
             agent.isStopped = true;
-        }
 
         if (animator != null)
-        {
             animator.SetTrigger("Die");
-        }
 
         StartCoroutine(DieAfterDelay());
     }
 
-    IEnumerator DieAfterDelay()
-    {
-        yield return new WaitForSeconds(2f);
-
-        if (coinPrefab != null)
-        {
-            Instantiate(
-                coinPrefab,
-                transform.position + Vector3.up * 1f,
-                Quaternion.identity
-            );
+    IEnumerator DieAfterDelay() {
+        if (deathEffect != null) { 
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
 
-        if (spawner != null)
-        {
-            spawner.EnemyDied();
+        yield return new WaitForSeconds(1f); if (coinPrefab != null) {
+            Instantiate(coinPrefab, transform.position + Vector3.up * 4f, Quaternion.identity);
+        } 
+
+        if (spawner != null) { spawner.EnemyDied();
         }
 
-        Destroy(gameObject);
-    }
+        Destroy(gameObject); }
 
     public void PlayVictory()
     {
         if (isDead) return;
 
         if (agent != null)
-        {
             agent.isStopped = true;
-        }
 
         this.enabled = false;
 

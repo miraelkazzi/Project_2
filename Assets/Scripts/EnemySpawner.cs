@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class EnemySpawner : MonoBehaviour
     public float spawnRadius = 6f;
     public float minDistanceBetweenEnemies = 2.5f;
     public int maxSpawnTries = 20;
+
+    public GameObject winPanel;
 
     private int currentWave = 0;
     private int enemiesAlive = 0;
@@ -61,6 +64,27 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitUntil(() => enemiesAlive <= 0);
 
             Debug.Log("===== WAVE " + currentWave + " CLEARED =====");
+
+            if (currentWave == maxWaves)
+            {
+                if (winPanel != null)
+                    winPanel.SetActive(true);
+
+                Time.timeScale = 0f;
+
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+
+                var controller = FindFirstObjectByType<StarterAssets.FirstPersonController>();
+                if (controller != null)
+                    controller.enabled = false;
+
+                var gun = FindFirstObjectByType<GunShoot>();
+                if (gun != null)
+                    gun.enabled = false;
+
+                yield break;
+            }
 
             if (currentWave == 4)
             {
@@ -177,5 +201,11 @@ public class EnemySpawner : MonoBehaviour
     {
         Debug.Log("Trigger started next wave");
         canStartNextWave = true;
+    }
+
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
     }
 }
