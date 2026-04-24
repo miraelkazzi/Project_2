@@ -38,6 +38,8 @@ public class GunShoot : MonoBehaviour
 
     void Shoot()
     {
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.shootSound);
+
         GameObject bullet = Instantiate(
             weaponData.bulletPrefab,
             firePoint.position,

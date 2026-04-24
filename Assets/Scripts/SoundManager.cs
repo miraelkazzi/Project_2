@@ -63,4 +63,9 @@ public class SoundManager : MonoBehaviour
 
         sfxSource.PlayOneShot(sound.clip, sound.volume);
     }
+
+    public void PlayButtonClick()
+    {
+        PlaySFX(buttonClick);
+    }
 }

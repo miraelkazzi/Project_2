@@ -70,6 +70,8 @@ public class EnemySpawner : MonoBehaviour
                 if (winPanel != null)
                     winPanel.SetActive(true);
 
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.winSound);
+
                 Time.timeScale = 0f;
 
                 Cursor.lockState = CursorLockMode.None;

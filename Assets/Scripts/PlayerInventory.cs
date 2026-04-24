@@ -64,6 +64,7 @@ public class PlayerInventory : MonoBehaviour
         {
             health.Heal(10);
         }
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.healSound);
 
         UpdateUI();
     }
@@ -80,6 +81,8 @@ public class PlayerInventory : MonoBehaviour
             gun.RefillAmmo();
         }
 
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.ammoRefill);
+
         UpdateUI();
     }
 
@@ -94,6 +97,7 @@ public class PlayerInventory : MonoBehaviour
         {
             health.ActivateShield(10f);
         }
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.shieldSound);
 
         UpdateUI();
     }

@@ -29,10 +29,7 @@ namespace NavKeypad
         [SerializeField] private Color screenNormalColor = new Color(0.98f, 0.50f, 0.032f, 1f); //orangy
         [SerializeField] private Color screenDeniedColor = new Color(1f, 0f, 0f, 1f); //red
         [SerializeField] private Color screenGrantedColor = new Color(0f, 0.62f, 0.07f); //greenish
-        [Header("SoundFx")]
-        [SerializeField] private AudioClip buttonClickedSfx;
-        [SerializeField] private AudioClip accessDeniedSfx;
-        [SerializeField] private AudioClip accessGrantedSfx;
+
         [Header("Component References")]
         [SerializeField] private Renderer panelMesh;
         [SerializeField] private TMP_Text keypadDisplayText;
@@ -53,7 +50,7 @@ namespace NavKeypad
         //Gets value from pressedbutton
         public void AddInput(string input)
         {
-            audioSource.PlayOneShot(buttonClickedSfx);
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.keypadClick);
             if (displayingResult || accessWasGranted) return;
             switch (input)
             {
@@ -109,7 +106,7 @@ namespace NavKeypad
             keypadDisplayText.text = accessDeniedText;
             onAccessDenied?.Invoke();
             panelMesh.material.SetVector("_EmissionColor", screenDeniedColor * screenIntensity);
-            audioSource.PlayOneShot(accessDeniedSfx);
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.accessDenied);
         }
 
         private void ClearInput()
@@ -124,7 +121,7 @@ namespace NavKeypad
             keypadDisplayText.text = accessGrantedText;
             onAccessGranted?.Invoke();
             panelMesh.material.SetVector("_EmissionColor", screenGrantedColor * screenIntensity);
-            audioSource.PlayOneShot(accessGrantedSfx);
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.accessGranted);
         }
 
     }

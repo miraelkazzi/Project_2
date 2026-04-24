@@ -174,6 +174,9 @@ public class Enemy : MonoBehaviour
     }
 
     IEnumerator DieAfterDelay() {
+
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.explosionSound);
+
         if (deathEffect != null) { 
             Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
@@ -185,7 +188,8 @@ public class Enemy : MonoBehaviour
         if (spawner != null) { spawner.EnemyDied();
         }
 
-        Destroy(gameObject); }
+        Destroy(gameObject);
+    }
 
     public void PlayVictory()
     {

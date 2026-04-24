@@ -23,18 +23,14 @@ public class EnemyBullet : MonoBehaviour
         if (other.CompareTag("Enemy"))
             return;
 
-        Debug.Log("💥 Coin hit: " + other.gameObject.name);
+        Debug.Log("💥 Bullet hit: " + other.gameObject.name);
 
-        if (other.CompareTag("Player"))
+        PlayerHealth player = other.GetComponentInParent<PlayerHealth>();
+
+        if (player != null)
         {
             Debug.Log("🎯 PLAYER GOT HIT");
-
-            PlayerHealth player = other.GetComponent<PlayerHealth>();
-
-            if (player != null)
-            {
-                player.TakeDamage(3); // stronger than bullet
-            }
+            player.TakeDamage(3);
         }
 
         Destroy(gameObject);

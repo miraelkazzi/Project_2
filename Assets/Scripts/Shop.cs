@@ -78,6 +78,8 @@ public class Shop : MonoBehaviour
         {
             playerInventory.AddHealthItem();
         }
+
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.buyItem);
     }
 
     public void BuyAmmo()
@@ -86,6 +88,7 @@ public class Shop : MonoBehaviour
         {
             playerInventory.AddAmmoItem();
         }
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.buyItem);
     }
 
     public void BuyShield()
@@ -94,5 +97,6 @@ public class Shop : MonoBehaviour
         {
             playerInventory.AddShieldItem();
         }
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.buyItem);
     }
 }

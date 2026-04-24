@@ -122,6 +122,8 @@ public class PlayerHealth : MonoBehaviour
         if (losePanel != null)
             losePanel.SetActive(true);
 
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.loseSound);
+
         Time.timeScale = 0f;
 
         Cursor.lockState = CursorLockMode.None;
@@ -146,5 +148,8 @@ public class PlayerHealth : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
-   
+    public void PlayButtonSound()
+    {
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.buttonClick);
+    }
 }

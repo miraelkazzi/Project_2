@@ -34,6 +34,8 @@ public class CoinPickup : MonoBehaviour
             inventory.AddCoins(value);
         }
 
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.coinPickup);
+
         Destroy(gameObject);
     }
 }
